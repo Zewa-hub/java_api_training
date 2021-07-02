@@ -17,55 +17,48 @@ public class Player {
                 this.map[i][y]=0;
             }
         }
-        map[0][0] = 1;
-        map[0][1] = 1;
     }
-    public Object[] strike(int[] tab)
-    {
+    public Object[] strike(int[] tab) {
         Object[] result = new Object[2];
         result[0] = "miss";
         result[1] = true;
-        if (this.map[tab[0]][tab[1]] != 0)
-        {
+        if (this.map[tab[0]][tab[1]] != 0) {
             int boat_id = this.map[tab[0]][tab[1]];
             this.map[tab[0]][tab[1]] = 0;
-            if (this.isEmpty())
-            {
+            if (this.isEmpty()) {
                 result[0] = "sunk";
                 result[1]= false;
             }
-            for (int i = 0; i< 10;i++)
-            {
-                for (int y = 0; y < 10 ; y++)
-                {
-                    if (this.map[i][y] == boat_id)
-                    {
-                        result[0] = "hit";
-                        break;
-                    }
+            result[0] = isSunked(boat_id);
+            }
+        return result;
+    }
+    public String  isSunked(int boat_id) {
+        for (int i = 0; i < 10; i++) {
+            for (int y = 0; y < 10; y++) {
+                if (this.map[i][y] == boat_id) {
+                    return "hit";
                 }
             }
         }
-        return result;
+        return "miss";
     }
+
     public boolean isEmpty()
     {
-        for (int i =0; i < 10;i++)
-        {
+        for (int i =0; i < 10;i++) {
             for (int y = 0; y<10;y++)
-                if (this.map[i][y] != 0)
-                {
+                if (this.map[i][y] != 0) {
                     return false;
                 }
         }
         return true;
     }
-    public String getId()
-    {
+
+    public String getId() {
         return this.id;
     }
-    public void addEnnemy(String id)
-    {
+    public void addEnnemy(String id) {
         this.ennemyId.add(id);
     }
 }

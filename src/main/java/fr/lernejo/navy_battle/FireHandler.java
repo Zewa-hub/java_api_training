@@ -10,31 +10,24 @@ import java.io.OutputStream;
 
 public class FireHandler implements HttpHandler {
     private final Server server;
-    public FireHandler(Server server)
-    {
+    public FireHandler(Server server) {
         this.server = server;
     }
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        if (exchange.getRequestMethod().equals("GET"))
-        {
+        if (exchange.getRequestMethod().equals("GET")) {
             String query = exchange.getRequestURI().getQuery().split("=")[1];
-            if (checkQuery(query.toLowerCase()))
-            {
+            if (checkQuery(query.toLowerCase())) {
                 Object result_object[] = this.server.getPlayer().strike(convertQuery(query));
                 JsonObject js = new JsonObject();
                 js.addProperty("consequence",(String)result_object[0]);
                 js.addProperty("shipLeft",(boolean)result_object[1]);
-                System.out.println(js.toString());
                 send_message(exchange,js.toString(),202);
             }
-            else {
+            else
                 send_message(exchange, "Bad Request", 400);
-                System.out.println("Case inconnu");
-            }
         }
         send_message(exchange,"Not Found",404);
-        System.out.println("Mauvaise requete");
     }
     private void send_message(HttpExchange exchange,String message,int server_code) throws IOException {
         exchange.sendResponseHeaders(server_code, message.length());
@@ -42,13 +35,10 @@ public class FireHandler implements HttpHandler {
             os.write(message.getBytes());
         }
     }
-    private boolean checkQuery(String query)
-    {
-        if (query.length() == 2 | query.length() == 3)
-        {
+    private boolean checkQuery(String query) {
+        if (query.length() == 2 | query.length() == 3) {
             char check[] = query.toCharArray();
-            if (check[0] >= 'a' && check[0] <= 'j')
-            {
+            if (check[0] >= 'a' && check[0] <= 'j') {
                 if (query.length()==2)
                     return check[1] >= '1' && check[1] <= '9';
                 else
@@ -57,8 +47,7 @@ public class FireHandler implements HttpHandler {
         }
         return false;
     }
-    private int[] convertQuery(String ch)
-    {
+    private int[] convertQuery(String ch) {
         int tab[] = new int[2];
         char check[] = ch.toLowerCase().toCharArray();
         tab[0] = table_converter(check[0]);
@@ -68,10 +57,8 @@ public class FireHandler implements HttpHandler {
             tab[1] = 9;
         return tab;
     }
-    private int table_converter(char c)
-    {
-        switch(c)
-        {
+    private int table_converter(char c) {
+        switch(c) {
             case 'a': return 0;
             case 'b': return 1;
             case 'c': return 2;

@@ -24,23 +24,13 @@ public class StartHandler implements HttpHandler {
             try {
                 response = (JSONObject) new JSONParser().parse(new InputStreamReader(exchange.getRequestBody(),"UTF-8"));
                 JsonObject js = JsonParser.parseString(response.toJSONString()).getAsJsonObject();
-                if (verify(js))
-                {
+                if (verify(js)) {
                     this.server.addURL(js.get("url").toString());
                     this.server.addPlayerEnnemy(js.get("id").toString());
-                    send_message(exchange,valid_message(),202);
-                }
-                else {
-                    send_message(exchange, "Bad Request", 400);
-                }
-            } catch (ParseException e) {
-                send_message(exchange, "Bad Request", 400);
-            }
-        }
-        else
-        {
-            send_message(exchange, "Not found", 404);
-        }
+                    send_message(exchange,valid_message(),202); }
+                else { send_message(exchange, "Bad Request", 400); }
+            } catch (ParseException e) { send_message(exchange, "Bad Request", 400); } }
+        else { send_message(exchange, "Not found", 404); }
     }
 
     private String valid_message()

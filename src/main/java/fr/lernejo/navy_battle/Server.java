@@ -15,8 +15,7 @@ public class Server {
     private final int port;
     private final Player player = new Player();
     private final ArrayList<String> url = new ArrayList<String>(1);
-    public Server(int port)
-    {
+    public Server(int port) {
         this.port = port;
         try {
             HttpServer currentserver = HttpServer.create(new InetSocketAddress("localhost",this.port),0);
@@ -30,15 +29,9 @@ public class Server {
             e.printStackTrace();
         }
     }
-    public void start_game(String url)
-    {
+    public void start_game(String url) {
         HttpClient currentclient = HttpClient.newHttpClient();
-        HttpRequest requetePost = HttpRequest.newBuilder()
-            .uri(URI.create(url + "/api/game/start"))
-            .setHeader("Accept", "application/json")
-            .setHeader("Content-Type", "application/json")
-            .POST(HttpRequest.BodyPublishers.ofString("{\"id\":\"1\", \"url\":\"http://localhost:" + port + "\", \"message\":\"hello\"}"))
-            .build();
+        HttpRequest requetePost = HttpRequest.newBuilder().uri(URI.create(url + "/api/game/start")).setHeader("Accept", "application/json").setHeader("Content-Type", "application/json").POST(HttpRequest.BodyPublishers.ofString("{\"id\":\"1\", \"url\":\"http://localhost:" + port + "\", \"message\":\"hello\"}")).build();
         HttpResponse<String> response = null;
         try {
             response = currentclient.send(requetePost, HttpResponse.BodyHandlers.ofString());
@@ -51,24 +44,19 @@ public class Server {
             e.printStackTrace();
         }
     }
-    public void addURL(String url)
-    {
+    public void addURL(String url) {
         this.url.add(url);
     }
-    public void addPlayerEnnemy(String id)
-    {
+    public void addPlayerEnnemy(String id) {
         this.player.addEnnemy(id);
     }
-    public int getPort()
-    {
+    public int getPort() {
         return this.port;
     }
-    public String getId()
-    {
+    public String getId() {
         return this.player.getId();
     }
-    public Player getPlayer()
-    {
+    public Player getPlayer() {
         return this.player;
     }
 }
