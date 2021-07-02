@@ -41,7 +41,7 @@ public class Player {
                 }
             }
         }
-        return "miss";
+        return "sunk";
     }
 
     public boolean isEmpty()
