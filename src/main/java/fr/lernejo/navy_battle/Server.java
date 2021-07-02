@@ -21,8 +21,7 @@ public class Server {
             currentserver.createContext("/ping",new PingHandler());
             StartHandler game = new StartHandler(this.id,this.port);
             currentserver.createContext("/api/game/start",game);
-            FireHandler
-            currentserver.createContext("/api/game/fire",)
+            //currentserver.createContext("/api/game/fire",)
             currentserver.start();
         } catch (IOException e) {
             e.printStackTrace();
