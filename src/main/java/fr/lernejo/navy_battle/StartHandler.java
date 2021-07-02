@@ -12,12 +12,10 @@ import org.json.simple.parser.ParseException;
 import java.io.*;
 
 public class StartHandler implements HttpHandler {
-    private final int id ;
-    private final int port;
-    public StartHandler(int id, int port)
+    private final Server server;
+    public StartHandler(Server srv)
     {
-        this.id=id;
-        this.port=port;
+        this.server=srv;
     }
     @Override
     public void handle(HttpExchange exchange) throws IOException {
@@ -28,7 +26,8 @@ public class StartHandler implements HttpHandler {
                 JsonObject js = JsonParser.parseString(response.toJSONString()).getAsJsonObject();
                 if (verify(js))
                 {
-
+                    this.server.addURL(js.get("url").toString());
+                    this.server.addPlayerEnnemy(js.get("id").toString());
                     send_message(exchange,valid_message(),202);
                 }
                 else {
@@ -47,8 +46,8 @@ public class StartHandler implements HttpHandler {
     private String valid_message()
     {
         JsonObject result = new JsonObject();
-        result.addProperty("id",this.id);
-        result.addProperty("url","localhost:"+this.port);
+        result.addProperty("id",this.server.getId());
+        result.addProperty("url","http://localhost:"+this.server.getPort());
         result.addProperty("message","May the best code win");
         return result.toString();
     }
