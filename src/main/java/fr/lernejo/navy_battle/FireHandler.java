@@ -41,9 +41,9 @@ public class FireHandler implements HttpHandler {
     }
 
     private void send_message(HttpExchange exchange,String message,int server_code) throws IOException {
-        exchange.sendResponseHeaders(server_code, message.length());
         exchange.getResponseHeaders().set("Content-Type", "application/json");
         exchange.getResponseHeaders().set("Accept", "application/json");
+        exchange.sendResponseHeaders(server_code, message.length());
         try (OutputStream os = exchange.getResponseBody()) { // (1)
             os.write(message.getBytes());
         }
