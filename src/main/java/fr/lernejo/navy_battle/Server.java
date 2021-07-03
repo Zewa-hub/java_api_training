@@ -56,7 +56,7 @@ public class Server {
                     if (JsonParser.parseString(response.body()).getAsJsonObject().get("shipLeft").toString().equals("false")) { endGame(true); }
                 }
             }
-        } catch (Exception e) { e.printStackTrace(); }
+        } catch (Exception e) { e.printStackTrace();}
     }
     public void endGame(boolean status) {
         if (status)
@@ -70,5 +70,4 @@ public class Server {
     public int getPort() { return this.port; }
     public String getId() { return this.player.getId(); }
     public Player getPlayer() { return this.player; }
-    public String test(){return this.url.get(0);}
 }
