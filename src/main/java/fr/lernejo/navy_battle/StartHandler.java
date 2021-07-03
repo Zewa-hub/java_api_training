@@ -25,12 +25,19 @@ public class StartHandler implements HttpHandler {
                 response = (JSONObject) new JSONParser().parse(new InputStreamReader(exchange.getRequestBody(),"UTF-8"));
                 JsonObject js = JsonParser.parseString(response.toJSONString()).getAsJsonObject();
                 if (verify(js)) {
-                    this.server.addURL(js.get("url").toString());
-                    this.server.addPlayerEnnemy(js.get("id").toString());
-                    send_message(exchange,valid_message(),202); }
+                    start_battle(js,exchange);
+                   }
                 else { send_message(exchange, "Bad Request", 400); }
             } catch (ParseException e) { send_message(exchange, "Bad Request", 400); } }
         else { send_message(exchange, "Not found", 404); }
+    }
+
+    private void start_battle(JsonObject js, HttpExchange exchange) throws IOException {
+        this.server.addURL(js.get("url").toString());
+        this.server.addPlayerEnnemy(js.get("id").toString());
+        exchange.getResponseHeaders().set("Content-Type", "application/json");
+        send_message(exchange,valid_message(),202);
+        this.server.send_fire();
     }
 
     private String valid_message()
