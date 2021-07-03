@@ -41,5 +41,4 @@ class ServerTest {
     @Test
     void getPlayer() {
     }
-
 }
