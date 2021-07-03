@@ -16,7 +16,7 @@ import static java.lang.System.exit;
 public class Server {
     private final int port;
     private final Player player = new Player();
-    private final ArrayList<String> url = new ArrayList<String>(1);
+    private final ArrayList<String> url = new ArrayList<String>(10);
     public Server(int port) {
         this.port = port;
         try {
@@ -45,9 +45,9 @@ public class Server {
         }
     }
     public void send_fire() {
-        HttpClient newclient = HttpClient.newHttpClient();
         Object[] tir = this.player.chooseCase();
-        HttpRequest requeteFire = HttpRequest.newBuilder().uri(URI.create(url + "/api/game/fire?cell="+(String)tir[3])).setHeader("Accept", "application/json").setHeader("Content-Type", "application/json").build();
+        HttpClient newclient = HttpClient.newHttpClient();
+        HttpRequest requeteFire = HttpRequest.newBuilder().uri(URI.create(this.url.get(0).replace("\"","") + "/api/game/fire?cell="+tir[2])).header("Accept","application/json").build();
         try {
             HttpResponse<String> response = newclient.send(requeteFire, HttpResponse.BodyHandlers.ofString());
             if (response.statusCode() == 202) {
@@ -70,4 +70,5 @@ public class Server {
     public int getPort() { return this.port; }
     public String getId() { return this.player.getId(); }
     public Player getPlayer() { return this.player; }
+    public String test(){return this.url.get(0);}
 }

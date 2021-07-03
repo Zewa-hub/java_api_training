@@ -36,6 +36,7 @@ public class StartHandler implements HttpHandler {
         this.server.addURL(js.get("url").toString());
         this.server.addPlayerEnnemy(js.get("id").toString());
         exchange.getResponseHeaders().set("Content-Type", "application/json");
+        exchange.getResponseHeaders().set("Accept", "application/json");
         send_message(exchange,valid_message(),202);
         this.server.send_fire();
     }

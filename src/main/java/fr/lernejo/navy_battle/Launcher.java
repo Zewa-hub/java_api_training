@@ -2,8 +2,8 @@ package fr.lernejo.navy_battle;
 import com.sun.net.httpserver.HttpServer;
 
 public class Launcher {
-    public static void main(String[] args) {
 
+    public static void main(String[] args) {
         if (args.length == 1)
         {
             Server server =  new Server(Integer.parseInt(args[0]));
@@ -15,4 +15,5 @@ public class Launcher {
         }
         else throw new IllegalArgumentException("Error with arguments");
     }
+
 }
