@@ -23,12 +23,23 @@ public class FireHandler implements HttpHandler {
                 js.addProperty("consequence",(String)result_object[0]);
                 js.addProperty("shipLeft",(boolean)result_object[1]);
                 send_message(exchange,js.toString(),202);
+                checkEnd((boolean)result_object[1]);
             }
             else
                 send_message(exchange, "Bad Request", 400);
         }
         send_message(exchange,"Not Found",404);
     }
+
+    private void checkEnd(boolean continu) {
+        if (continu == false) {
+            this.server.endGame(false);
+        }
+        else{
+            this.server.send_fire();
+        }
+    }
+
     private void send_message(HttpExchange exchange,String message,int server_code) throws IOException {
         exchange.sendResponseHeaders(server_code, message.length());
         try (OutputStream os = exchange.getResponseBody()) { // (1)
