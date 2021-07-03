@@ -17,7 +17,6 @@ public class FireHandler implements HttpHandler {
     public void handle(HttpExchange exchange) throws IOException {
         if (exchange.getRequestMethod().equals("GET")) {
             String query = exchange.getRequestURI().getQuery().split("=")[1];
-
             if (checkQuery(query.toLowerCase())) {
                 Object result_object[] = this.server.getPlayer().strike(convertQuery(query));
                 JsonObject js = new JsonObject();
@@ -43,6 +42,8 @@ public class FireHandler implements HttpHandler {
 
     private void send_message(HttpExchange exchange,String message,int server_code) throws IOException {
         exchange.sendResponseHeaders(server_code, message.length());
+        exchange.getResponseHeaders().set("Content-Type", "application/json");
+        exchange.getResponseHeaders().set("Accept", "application/json");
         try (OutputStream os = exchange.getResponseBody()) { // (1)
             os.write(message.getBytes());
         }
