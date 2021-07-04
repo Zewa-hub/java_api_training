@@ -32,8 +32,8 @@ public class Server {
     }
     public void start_game(String url) {
         HttpClient currentclient = HttpClient.newHttpClient();
-        HttpRequest requetePost = HttpRequest.newBuilder().uri(URI.create(url + "/api/game/start")).setHeader("Accept", "application/json").setHeader("Content-Type", "application/json").POST(HttpRequest.BodyPublishers.ofString("{\"id\":\""+this.player.getId()+"\", \"url\":\"http://localhost:" + port + "\", \"message\":\"Hello\"}")).build();
         try {
+            HttpRequest requetePost = HttpRequest.newBuilder().uri(URI.create(url + "/api/game/start")).setHeader("Accept", "application/json").setHeader("Content-Type", "application/json").POST(HttpRequest.BodyPublishers.ofString("{\"id\":\""+this.player.getId()+"\", \"url\":\"http://localhost:" + port + "\", \"message\":\"Hello\"}")).build();
             HttpResponse<String> response = currentclient.send(requetePost, HttpResponse.BodyHandlers.ofString());
             if (response.statusCode() == 202) {
                 this.addURL(url);

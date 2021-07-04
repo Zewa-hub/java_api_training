@@ -20,4 +20,9 @@ class GeneratingBoatsTest {
     {
         Assertions.assertThat(new GeneratingBoats(3).getBoats()).isEqualTo(new GeneratingBoats(3).getBoats());
     }
+    @Test
+    void test_bad_preset()
+    {
+        Assertions.assertThat(new GeneratingBoats(6).getBoats()).isEqualTo(new GeneratingBoats(6).getBoats());
+    }
 }

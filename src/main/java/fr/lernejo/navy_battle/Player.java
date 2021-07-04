@@ -77,8 +77,8 @@ public class Player {
             case 6: return "G";
             case 7: return "H";
             case 8: return "I";
-            case 9: return "J";
-            default : return "None";
+            default: return "J";
+
         }
     }
     public String getId() { return this.id; }

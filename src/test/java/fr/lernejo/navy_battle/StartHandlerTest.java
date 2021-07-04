@@ -14,9 +14,9 @@ class StartHandlerTest {
 
     @Test
     void test_handle_start_bad_json() {
-        Server s1 = new Server(9876);
+        Server s1 = new Server(0002);
         HttpClient newclient = HttpClient.newHttpClient();
-        HttpRequest requetePost = HttpRequest.newBuilder().uri(URI.create("http://localhost:9876/api/game/start")).setHeader("Accept", "application/json").setHeader("Content-Type", "application/json").POST(HttpRequest.BodyPublishers.ofString("{ url\":\"http://localhost:9876\" , \"message\":\"Hello\"}")).build();
+        HttpRequest requetePost = HttpRequest.newBuilder().uri(URI.create("http://localhost:9876/api/game/start")).setHeader("Accept", "application/json").setHeader("Content-Type", "application/json").POST(HttpRequest.BodyPublishers.ofString("{ }")).build();
         try {
             HttpResponse<String> response = newclient.send(requetePost, HttpResponse.BodyHandlers.ofString());
             Assertions.assertThat(response.statusCode()).isEqualTo(400);
