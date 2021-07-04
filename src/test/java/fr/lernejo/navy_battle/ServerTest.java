@@ -33,12 +33,4 @@ class ServerTest {
         Assertions.assertThat(new Server(9876).getPort()).isEqualTo(9876);
     }
 
-    @Test
-    void test_getId() {
-        //Assertions.assertThat(new Server(9876).getId()).isEqualTo(9876);
-    }
-
-    @Test
-    void getPlayer() {
-    }
 }
