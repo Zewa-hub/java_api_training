@@ -7,16 +7,16 @@ import java.util.UUID;
 public class Player {
     private final String id = UUID.randomUUID().toString();
     private final ArrayList<String> ennemyId = new ArrayList<String>(1);
-    private final int[][]map = new int[10][10];
-    private final int [][]ennemyMap = new int[10][10];
+    private final int[][]map;
+    private final int [][]ennemyMap = new int [10][10];
     public Player() {
-        for (int i = 0; i < 10; i++ ) {
-            for (int y = 0; y < 10; y++) {
-                this.map[i][y]=0;
+        Random random = new Random();
+        this.map = new GeneratingBoats(random.nextInt(3)).getBoats();
+        for (int i = 0; i < 10; i++)
+        {
+            for (int y = 0;y < 10;y++)
                 this.ennemyMap[i][y]=0;
-            }
         }
-        this.map[0][0] = 1;
     }
     public Object[] strike(int[] tab) {
         Object[] result = new Object[2];

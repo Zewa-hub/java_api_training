@@ -16,15 +16,14 @@ import static java.lang.System.exit;
 public class Server {
     private final int port;
     private final Player player = new Player();
-    private final ArrayList<String> url = new ArrayList<String>(10);
+    private final ArrayList<String> url = new ArrayList<String>(1);
     public Server(int port) {
         this.port = port;
         try {
             HttpServer currentServer = HttpServer.create(new InetSocketAddress("localhost",this.port),0);
             currentServer.setExecutor(Executors.newSingleThreadExecutor());
             currentServer.createContext("/ping",new PingHandler());
-            StartHandler game = new StartHandler(this);
-            currentServer.createContext("/api/game/start",game);
+            currentServer.createContext("/api/game/start",new StartHandler(this));
             currentServer.createContext("/api/game/fire",new FireHandler(this));
             currentServer.start();
         } catch (IOException e) {
@@ -60,9 +59,9 @@ public class Server {
     }
     public void endGame(boolean status) {
         if (status)
-            System.out.println("I won against the player \""+this.player.getEnnemyId()+"\", Congratulation !");
+            System.out.println("I won against the player \""+this.player.getEnnemyId()+"\". Congratulation !");
         else
-            System.out.println("I lost against the player \""+this.player.getEnnemyId()+"\", I tried my best :( ");
+            System.out.println("I lost against the player \""+this.player.getEnnemyId()+"\". I tried my best :( ");
         exit(0);
     }
     public void addURL(String url) { this.url.add(url); }
