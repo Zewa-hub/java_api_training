@@ -20,7 +20,7 @@ class ServerTest {
 
     @Test
     void test_endGame() throws Exception {
-        
+
     }
 
 
